@@ -9,7 +9,7 @@
       />
     </template>
 
-    <button slot="actions">
+    <button slot="actions" @click="resetGame">
       Reset
     </button>
     <button slot="actions" :disabled="hasDealt" @click="deal">
@@ -20,11 +20,15 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+
 import { CardSet } from '@/modules/Card/CardSet';
 import { Card } from '@/modules/Card/Card';
 import { Suit } from '@/modules/Card/Suit';
 import { Face } from '@/modules/Card/Face';
 import PlayingCard from '@/modules/Card/components/PlayingCard.vue';
+
+import { Player } from '@/modules/Player/Player';
+
 import Board from './components/Board.vue';
 
 @Component({
@@ -38,11 +42,14 @@ import Board from './components/Board.vue';
 export default class Game extends Vue {
   deck: CardSet = new CardSet();
 
+  players: Player[] = [];
+
   hasDealt = false;
 
   /* Lifecycle */
   beforeMount(): void {
     this.createDeck();
+    this.createPlayers();
   }
 
   /* Methods */
@@ -62,6 +69,18 @@ export default class Game extends Vue {
     this.deck = deck;
   }
 
+  createPlayers(): void {
+    this.players = ['North', 'East', 'South', 'West'].map((name: string) => new Player(name));
+  }
+
+  resetGame(): void {
+    this.players.forEach((player: Player) => {
+      this.deck.addCards(player.takeCards());
+    });
+
+    this.hasDealt = false;
+  }
+
   shuffleDeck(): void {
     const shuffled = [...this.deck.getCards()];
 
@@ -78,6 +97,20 @@ export default class Game extends Vue {
 
   deal(): void {
     this.shuffleDeck();
+
+    let i = 0;
+
+    // Loop through deck, take card, and give to next player
+    while (this.deck.getSize() > 0) {
+      const player = this.players[i % this.players.length];
+      const card = this.deck.popCard();
+
+      if (card) {
+        player.giveCard(card);
+      }
+
+      i += 1;
+    }
 
     this.hasDealt = true;
   }
