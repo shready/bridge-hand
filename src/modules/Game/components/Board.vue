@@ -46,4 +46,48 @@ export default class Board extends Vue {
     overflow: hidden;
     position: relative;
   }
+
+  .board__control {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    padding: 2rem 3rem;
+    border: 1px dashed #ddd;
+    border-radius: 1rem;
+  }
+
+  .board__deck {
+    display: flex;
+    flex-flow: row wrap;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 150px;
+
+    .card {
+      margin-left: 1rem;
+      margin-bottom: 1rem;
+
+      &.card--stacked {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin: 0;
+        transform: translate(0, -50%);
+      }
+    }
+  }
+
+  .board__actions {
+    display: flex;
+    flex-direction: column;
+
+    > * {
+      margin: 0.25rem 0;
+    }
+  }
 </style>

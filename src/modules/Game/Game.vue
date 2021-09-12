@@ -1,5 +1,14 @@
 <template>
   <board>
+    <template slot="deck">
+      <playing-card
+        v-for="card in deck.getCards()"
+        :key="`${card}`"
+        :card="card"
+        :stacked="!hasDealt"
+      />
+    </template>
+
     <button slot="actions">
       Reset
     </button>
@@ -15,12 +24,14 @@ import { CardSet } from '@/modules/Card/CardSet';
 import { Card } from '@/modules/Card/Card';
 import { Suit } from '@/modules/Card/Suit';
 import { Face } from '@/modules/Card/Face';
+import PlayingCard from '@/modules/Card/components/PlayingCard.vue';
 import Board from './components/Board.vue';
 
 @Component({
   name: 'Game',
   components: {
     Board,
+    PlayingCard,
   },
 })
 

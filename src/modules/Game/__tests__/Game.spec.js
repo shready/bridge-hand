@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import Game from '@/modules/Game/Game.vue';
+import Game from '../Game.vue';
 
 describe('Game.vue', () => {
   it('creates deck of cards on mount', () => {
