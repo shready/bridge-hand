@@ -90,4 +90,47 @@ export default class Board extends Vue {
       margin: 0.25rem 0;
     }
   }
+
+  .player {
+    padding: 0.5rem;
+  }
+
+  .player--1,
+  .player--3 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .player--1 {
+    top: 0;
+
+    .player-hand {
+      flex-direction: column-reverse;
+    }
+  }
+
+  .player--3 {
+    bottom: 0;
+  }
+
+  .player--2,
+  .player--4 {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .player--2 {
+    right: 0;
+  }
+
+  .player--4 {
+    left: 0;
+    padding-left: 1.25rem;
+
+    .player-hand {
+      flex-direction: row-reverse;
+    }
+  }
 </style>

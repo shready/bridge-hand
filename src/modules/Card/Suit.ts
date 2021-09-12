@@ -4,3 +4,5 @@ export enum Suit {
   heart = '♥',
   spade = '♠',
 }
+
+export const suits: Array<Suit> = Object.values(Suit);

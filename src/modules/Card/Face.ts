@@ -13,3 +13,5 @@ export enum Face {
   king = 'K',
   ace = 'A',
 }
+
+export const faces: Array<Face> = Object.values(Face);

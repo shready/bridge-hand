@@ -82,7 +82,7 @@ describe('CardSet class', () => {
       new Card(Face.ace, Suit.spade),
       new Card(Face.eight, Suit.heart),
       new Card(Face.queen, Suit.club),
-      new Card(Face.eight, Suit.heart),
+      new Card(Face.nine, Suit.heart),
       new Card(Face.two, Suit.club),
     ], scorer);
 
@@ -90,5 +90,29 @@ describe('CardSet class', () => {
     expect(set.getPointValueForSuit(Suit.heart)).toBe(6);
     expect(set.getPointValueForSuit(Suit.spade)).toBe(4);
     expect(set.getPointValueForSuit(Suit.diamond)).toBe(0);
+  });
+
+  it('retrieves a sorted set of cards', () => {
+    const cards = [
+      new Card(Face.ace, Suit.spade),
+      new Card(Face.eight, Suit.heart),
+      new Card(Face.queen, Suit.club),
+      new Card(Face.nine, Suit.heart),
+      new Card(Face.two, Suit.club),
+      new Card(Face.seven, Suit.diamond),
+      new Card(Face.king, Suit.spade),
+    ];
+
+    const set = new CardSet(cards);
+
+    expect(set.getSortedCards()).toStrictEqual([
+      cards[0],
+      cards[6],
+      cards[3],
+      cards[1],
+      cards[5],
+      cards[2],
+      cards[4],
+    ]);
   });
 });

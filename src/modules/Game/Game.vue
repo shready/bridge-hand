@@ -9,6 +9,15 @@
       />
     </template>
 
+    <player-hand
+      v-for="(player, i) in players"
+      :key="player.getName()"
+      :slot="`player-${i + 1}`"
+      :player="player"
+      :vertical="i % 2 === 1"
+      :stackedHand="!hasDealt"
+    />
+
     <button slot="actions" @click="resetGame">
       Reset
     </button>
@@ -23,11 +32,12 @@ import { Component, Vue } from 'vue-property-decorator';
 
 import { CardSet } from '@/modules/Card/CardSet';
 import { Card } from '@/modules/Card/Card';
-import { Suit } from '@/modules/Card/Suit';
-import { Face } from '@/modules/Card/Face';
+import { Suit, suits } from '@/modules/Card/Suit';
+import { Face, faces } from '@/modules/Card/Face';
 import PlayingCard from '@/modules/Card/components/PlayingCard.vue';
 
 import { Player } from '@/modules/Player/Player';
+import PlayerHand from '@/modules/Player/components/PlayerHand.vue';
 
 import Board from './components/Board.vue';
 
@@ -36,6 +46,7 @@ import Board from './components/Board.vue';
   components: {
     Board,
     PlayingCard,
+    PlayerHand,
   },
 })
 
@@ -56,10 +67,10 @@ export default class Game extends Vue {
   createDeck(): void {
     const deck: CardSet = new CardSet();
 
-    Object.values(Suit).forEach((s: string) => {
+    suits.forEach((s: string) => {
       const suit: Suit = s as Suit;
 
-      Object.values(Face).forEach((f: string) => {
+      faces.forEach((f: string) => {
         const face: Face = f as Face;
 
         deck.addCard(new Card(face, suit));

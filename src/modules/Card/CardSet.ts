@@ -1,7 +1,8 @@
 import { ScorerInterface } from '@/lib/ScorerInterface';
 import { BridgeScorer } from '@/lib/BridgeScorer';
 import { Card } from './Card';
-import { Suit } from './Suit';
+import { Suit, suits } from './Suit';
+import { faces } from './Face';
 
 export class CardSet {
   private cards: Card[] = [];
@@ -14,10 +15,20 @@ export class CardSet {
     this.scorer = scorer;
   }
 
-  getCards(suit: Suit | null = null): Card[] {
+  getCards(suit?: Suit | undefined): Card[] {
     return !suit
       ? this.cards
       : this.cards.filter((card: Card): boolean => card.getSuit() === suit);
+  }
+
+  getSortedCards(): Card[] {
+    return [...this.cards].sort((a: Card, b: Card) => {
+      // Compare suits
+      const suitCmp: number = suits.indexOf(b.getSuit()) - suits.indexOf(a.getSuit());
+
+      // If suits are equal, then compare the face/number
+      return suitCmp || faces.indexOf(b.getFace()) - faces.indexOf(a.getFace());
+    });
   }
 
   setCards(cards: Card[]): CardSet {
