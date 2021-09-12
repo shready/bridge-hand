@@ -38,6 +38,10 @@ export class CardSet {
     return this;
   }
 
+  popCard(): Card | undefined {
+    return this.cards.pop();
+  }
+
   getSize(): number {
     return this.cards.length;
   }
