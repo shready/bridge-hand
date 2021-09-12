@@ -14,8 +14,10 @@ export class CardSet {
     this.scorer = scorer;
   }
 
-  getCards(): Card[] {
-    return this.cards;
+  getCards(suit: Suit | null = null): Card[] {
+    return !suit
+      ? this.cards
+      : this.cards.filter((card: Card): boolean => card.getSuit() === suit);
   }
 
   setCards(cards: Card[]): CardSet {
@@ -45,8 +47,6 @@ export class CardSet {
   }
 
   getPointValueForSuit(suit: Suit): number {
-    const filtered = this.cards.filter((card: Card): boolean => card.getSuit() === suit);
-
-    return this.scorer.score(filtered);
+    return this.scorer.score(this.getCards(suit));
   }
 }

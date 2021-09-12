@@ -18,4 +18,8 @@ export class Card {
   getSuit(): Suit {
     return this.suit;
   }
+
+  toString(): string {
+    return `${this.getFace()}${this.getSuit()}`;
+  }
 }
