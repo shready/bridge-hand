@@ -17,12 +17,12 @@
       :vertical="i % 2 === 1"
     />
 
-    <button slot="actions" @click="resetGame">
-      Reset
-    </button>
-    <button slot="actions" :disabled="hasDealt" @click="deal">
+    <app-button slot="actions" :disabled="hasDealt" @click="deal">
       Deal
-    </button>
+    </app-button>
+    <app-button slot="actions" @click="resetGame">
+      Reset
+    </app-button>
   </board>
 </template>
 
@@ -39,12 +39,14 @@ import PlayingCard from '@/modules/Card/components/PlayingCard.vue';
 import { Player } from '@/modules/Player/Player';
 import PlayerHand from '@/modules/Player/components/PlayerHand.vue';
 
+import AppButton from '@/components/AppButton.vue';
 import Board from './components/Board.vue';
 
 @Component({
   name: 'Game',
   components: {
     Board,
+    AppButton,
     PlayingCard,
     PlayerHand,
   },
