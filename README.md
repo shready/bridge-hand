@@ -1,29 +1,38 @@
-# bridge-hand
+# Bridge Hand
 
-## Project setup
+## Launch App
+
+### With Docker
+```
+yarn deploy
+```
+
+App will be available at http://localhost:9999 by default. Port can be changed in `package.json`.
+
+
+### With hot-reloads for development/testing
+Install [node](https://nodejs.org) and [yarn](https://yarnpkg.com)
+
+Install dependencies with
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+Launch app with
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+## Other commands
+
+### Build distributable app files
 ```
 yarn build
 ```
 
-### Run your unit tests
+Files will be available in the `/dist` directory
+
+### Run unit tests
 ```
 yarn test:unit
 ```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
