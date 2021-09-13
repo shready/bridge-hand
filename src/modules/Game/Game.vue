@@ -15,7 +15,6 @@
       :slot="`player-${i + 1}`"
       :player="player"
       :vertical="i % 2 === 1"
-      :stackedHand="!hasDealt"
     />
 
     <button slot="actions" @click="resetGame">
@@ -29,6 +28,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { wait } from '@/lib/wait';
 
 import { CardSet } from '@/modules/Card/CardSet';
 import { Card } from '@/modules/Card/Card';
@@ -56,6 +56,8 @@ export default class Game extends Vue {
   players: Player[] = [];
 
   hasDealt = false;
+
+  dealDelay = 50;
 
   /* Lifecycle */
   beforeMount(): void {
@@ -106,7 +108,7 @@ export default class Game extends Vue {
     this.deck.setCards(shuffled);
   }
 
-  deal(): void {
+  async deal(): Promise<void> {
     this.shuffleDeck();
 
     let i = 0;
@@ -121,6 +123,10 @@ export default class Game extends Vue {
       }
 
       i += 1;
+
+      if (this.dealDelay) {
+        await wait(this.dealDelay); // eslint-disable-line no-await-in-loop
+      }
     }
 
     this.hasDealt = true;

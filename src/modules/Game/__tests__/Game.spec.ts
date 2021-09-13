@@ -4,8 +4,14 @@ import Game from '../Game.vue';
 import { Card } from '@/modules/Card/Card';
 
 describe('Game.vue', () => {
+  let data: () => object;
+
+  beforeEach(() => {
+    data = () => ({ dealDelay: 0 });
+  });
+
   it('creates deck of cards on mount', () => {
-    const wrapper: any = shallowMount(Game);
+    const wrapper: any = shallowMount(Game, { data });
     const deck = wrapper.vm.deck;
 
     expect(deck.getSize()).toBe(52);
@@ -22,7 +28,7 @@ describe('Game.vue', () => {
   });
 
   it('creates players on mount', () => {
-    const wrapper: any = shallowMount(Game);
+    const wrapper: any = shallowMount(Game, { data });
     const names = wrapper.vm.players.map((p: Player) => p.getName());
     const handSizes = wrapper.vm.players.map((p: Player) => p.getHand().getSize());
 
@@ -31,7 +37,7 @@ describe('Game.vue', () => {
   });
 
   it('deals cards to players', () => {
-    const wrapper: any = shallowMount(Game);
+    const wrapper: any = shallowMount(Game, { data });
 
     wrapper.vm.deal();
     expect(wrapper.vm.deck.getSize()).toBe(0);
@@ -41,7 +47,7 @@ describe('Game.vue', () => {
   });
 
   it('resets game after dealing', () => {
-    const wrapper: any = shallowMount(Game);
+    const wrapper: any = shallowMount(Game, { data });
 
     wrapper.vm.deal();
 
