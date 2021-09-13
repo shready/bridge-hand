@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "vue-cli-service build && docker build -t client . && echo '\nReady at http://localhost:9999' && docker run --rm -p 9999:80 client"
   },
   "dependencies": {
     "core-js": "^3.6.5",
